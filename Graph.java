@@ -1,6 +1,8 @@
 package projectPart3;
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -15,10 +17,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
+import javax.swing.border.Border;
+
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -318,9 +329,11 @@ public class Graph extends JPanel {
 		JLabel precision = new JLabel("Precision:" + (decFormat.format(obj.getPrecision(mainPanel.data))));
 		frame.add(precision);
         frame.pack();
+        
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setLayout(new GridLayout(3,3));
+        frame.setSize(800,800);
         //extra credit 
         JPanel point = new JPanel();
         JLabel label = new JLabel();
@@ -330,7 +343,88 @@ public class Graph extends JPanel {
         MouseListenerUpdated coord = new MouseListenerUpdated(label);
         mainPanel.addMouseListener(coord);
         
+        //Project Part 4
+        //frame.setLayout(new BorderLayout());
+        
+//		TODO: 1. Below the graph, first add a JLabel that states 
+//		“Choose the majority value” and place it in the center. 
+	//	l = new JLabel();
+//	    l.setText("Choose the majority value");
+//		l.setHorizontalAlignment(JLabel.CENTER);
+   
+	    JPanel p = new JPanel(new BorderLayout());
+	    JLabel majvalue = new JLabel("Choose the majority value", JLabel.CENTER);
+        
+        majvalue.setHorizontalAlignment(JLabel.CENTER);
+        majvalue.setAlignmentX(Component.CENTER_ALIGNMENT);
+        majvalue.setVerticalAlignment(SwingConstants.CENTER);
+        
+        //majvalue.setBorder(BorderFactory.createLineBorder(Color.black));
+        //majvalue.setVerticalTextPosition(JLabel.SOUTH);
+        Border border = BorderFactory.createLineBorder(Color.ORANGE);
+        majvalue.setBorder(border);
+        frame.add(majvalue, BorderLayout.SOUTH);
+
+        //p.add(mainPanel, BorderLayout.SOUTH);
+        //p.add(majvalue, JLabel.CENTER);
+	    p.add(mainPanel, BorderLayout.NORTH);
+	    //p.add(new JLabel("Choose the majority value", JLabel.CENTER));
+	    //frame.add(p);
+        JSlider framesPerSecond = new JSlider(JSlider.HORIZONTAL,
+                2, 25, 5);
+        framesPerSecond.setMajorTickSpacing(5);
+        framesPerSecond.setMinorTickSpacing(1);
+        framesPerSecond.setPaintTicks(true);
+        framesPerSecond.setPaintLabels(true);
+        framesPerSecond.setSnapToTicks(true);
+        frame.add(framesPerSecond);
+        //JButton runtest = new JButton("Run Test");
+       // frame.add(runtest);
+        JPanel panel = new JPanel();
+	    panel.add(framesPerSecond, new JLabel(BorderLayout.SOUTH));
+	    frame.add(panel);
+	    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	    
+//	    TODO: 3.Create a JButton below that says “Run Test”
+	    JPanel southPanel = new JPanel(new BorderLayout());
+	    JButton b = new JButton("Run Test");  
+//	    b.setBounds(50,100,95,30); 
+	    southPanel.add(b, BorderLayout.CENTER);
+	    mainPanel.add(southPanel, BorderLayout.CENTER);
+//	    frame.add(b);  
+//	    frame.setLayout(null); 
+	    frame.add(p);
+	   
+
+        
+     
+
+        
+        
+
+        
+
+//        JPanel variable = new JPanel(null);
+//        JLabel majvalue2 = new JLabel("Choose the majority value");
+//        frame.add(majvalue2);
+//        Dimension size = majvalue2.getPreferredSize();
+//        majvalue2.setBounds(100, 100, size.width, size.height);
+//
+//           frame.setSize(300, 200);
+//           frame.setVisible(true);
+
     }
+//    public void actionPerformed(ActionEvent e) {
+//        if ("disable".equals(e.getActionCommand())) {
+//            b2.setEnabled(false);
+//            b1.setEnabled(false);
+//            b3.setEnabled(true);
+//        } else {
+//            b2.setEnabled(true);
+//            b1.setEnabled(true);
+//            b3.setEnabled(false);
+//        }
+//    }
 	public static void main(String[] args) {
 	     int K = 7; // A value of K selected    
 	        String fileName = ("titanic.csv"); // TODO: Change this to titanic.csv
